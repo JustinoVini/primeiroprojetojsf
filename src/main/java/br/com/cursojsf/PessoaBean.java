@@ -1,11 +1,10 @@
 package br.com.cursojsf;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.component.html.HtmlCommandButton;
+
+import br.com.cursojsf.dao.DaoGeneric;
+import br.com.cursojsf.entidades.Pessoa;
 
 /**
  * 
@@ -13,56 +12,24 @@ import javax.faces.component.html.HtmlCommandButton;
  *         inferiores de determinado assunto
  *
  */
-// @NoneScoped // o bean será instanciado a cada vez que for referenciado
-// @RequestScoped // padrão, vida curta começa quando é referenciado em um req e termina na res
 @ViewScoped // permanece ativa até que o usuário navegue para uma proxima pagina
-// @SessionScoped // mantem a sessao durante varias req e ate mesmo navegacoes entre paginas ate o final da sessao do user
-// @ApplicationScoped // mantem a instancia durante o tempo de execucao 
 @ManagedBean(name = "pessoaBean") // nome do managedBean que será pego no template
 public class PessoaBean {
 
-	// dados que vou receber da tela
-	private String nome;
-	
-	private List<String> nomes = new ArrayList<String>();
-	
-	/*Amarrando um componetne de backend usando biding*/
-	private HtmlCommandButton commandButton;
+	Pessoa pessoa = new Pessoa();
+	private DaoGeneric<Pessoa> daoGeneric = new DaoGeneric<Pessoa>();
 
-	public String addNome() { // método em String
-		nomes.add(nome);
-		
-		// testando
-		if (nomes.size() > 3) {
-			commandButton.setDisabled(true);
-			return "paginanavegada?faces-redirect=true";
-		}
-		
-		return ""; // dessa forma com action ele permanece na tela
+	public String salvar() {
+		daoGeneric.salvar(pessoa);
+		return "";
 	}
 
-	public String getNome() {
-		return nome;
+	public Pessoa getPessoa() {
+		return pessoa;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	public List<String> getNomes() {
-		return nomes;
-	}
-
-	public void setNomes(List<String> nomes) {
-		this.nomes = nomes;
-	}
-	
-	public HtmlCommandButton getCommandButton() {
-		return commandButton;
-	}
-	
-	public void setCommandButton(HtmlCommandButton commandButton) {
-		this.commandButton = commandButton;
+	public void setPessoa(Pessoa pessoa) {
+		this.pessoa = pessoa;
 	}
 
 }
