@@ -16,14 +16,15 @@ public class DaoGeneric<E> {
 		entityManager.persist(entidade);
 		transaction.commit();
 	}
-	
+
 	public E merge(E entidade) {
+		EntityManager entityManager = JPAUtil.getEntityManager();
 		EntityTransaction transaction = entityManager.getTransaction();
 		transaction.begin(); // inicia
-		E retorno = entityManager.merge(entidade); /*Salva/atualiza/retorna entidade*/
+		E retorno = entityManager.merge(entidade); /* Salva/atualiza/retorna entidade */
 		transaction.commit();
 		entityManager.close();
-		
+
 		return retorno;
 	}
 
@@ -36,5 +37,33 @@ public class DaoGeneric<E> {
 
 		return entidadeSalva;
 	}
-	
+
+	public void delete(E entidade) {
+		EntityTransaction transaction = entityManager.getTransaction();
+		transaction.begin(); // inicia
+		entityManager.remove(entidade);
+		transaction.commit();
+	}
+
+	public void deletePorId(E entidade) {
+	    EntityManager entityManager = JPAUtil.getEntityManager();
+	    EntityTransaction transaction = entityManager.getTransaction();
+	    transaction.begin(); // inicia a transação
+	    
+	    try {
+	        Object id = JPAUtil.getPrimaryKey(entidade);
+	        entityManager.createQuery("delete from " + entidade.getClass().getCanonicalName() + " where id = " + id)
+	                     .executeUpdate();
+	        
+	        transaction.commit(); // finaliza a transação
+	    } catch (Exception ex) {
+	        if (transaction.isActive()) {
+	            transaction.rollback(); // rollback em caso de exceção
+	        }
+	        throw ex; // relança a exceção para o chamador
+	    } finally {
+	        entityManager.close(); // fecha o EntityManager
+	    }
+	}
+
 }

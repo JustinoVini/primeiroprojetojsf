@@ -28,6 +28,12 @@ public class PessoaBean {
 		pessoa = daoGeneric.merge(pessoa);
 		return "";
 	}
+	
+	public String remove() {
+		daoGeneric.deletePorId(pessoa);
+		pessoa = new Pessoa();
+		return "";
+	}
 
 	public String novo() {
 		pessoa = new Pessoa();
