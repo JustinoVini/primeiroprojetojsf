@@ -1,5 +1,7 @@
 package br.com.cursojsf.dao;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
@@ -46,24 +48,36 @@ public class DaoGeneric<E> {
 	}
 
 	public void deletePorId(E entidade) {
-	    EntityManager entityManager = JPAUtil.getEntityManager();
-	    EntityTransaction transaction = entityManager.getTransaction();
-	    transaction.begin(); // inicia a transação
-	    
-	    try {
-	        Object id = JPAUtil.getPrimaryKey(entidade);
-	        entityManager.createQuery("delete from " + entidade.getClass().getCanonicalName() + " where id = " + id)
-	                     .executeUpdate();
-	        
-	        transaction.commit(); // finaliza a transação
-	    } catch (Exception ex) {
-	        if (transaction.isActive()) {
-	            transaction.rollback(); // rollback em caso de exceção
-	        }
-	        throw ex; // relança a exceção para o chamador
-	    } finally {
-	        entityManager.close(); // fecha o EntityManager
-	    }
+		EntityManager entityManager = JPAUtil.getEntityManager();
+		EntityTransaction transaction = entityManager.getTransaction();
+		transaction.begin(); // inicia a transação
+
+		try {
+			Object id = JPAUtil.getPrimaryKey(entidade);
+			entityManager.createQuery("delete from " + entidade.getClass().getCanonicalName() + " where id = " + id)
+					.executeUpdate();
+
+			transaction.commit(); // finaliza a transação
+		} catch (Exception ex) {
+			if (transaction.isActive()) {
+				transaction.rollback(); // rollback em caso de exceção
+			}
+			throw ex; // relança a exceção para o chamador
+		} finally {
+			entityManager.close(); // fecha o EntityManager
+		}
+	}
+
+	public List<E> getListEntity(Class<E> entidade) {
+		EntityManager entityManager = JPAUtil.getEntityManager();
+		EntityTransaction transaction = entityManager.getTransaction();
+		transaction.begin(); // inicia a transação
+
+		List<E> retorno = entityManager.createQuery("from " + entidade.getName()).getResultList();
+
+		transaction.commit();
+		entityManager.close();
+		return retorno;
 	}
 
 }
