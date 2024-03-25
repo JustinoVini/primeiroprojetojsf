@@ -34,12 +34,25 @@
 			
 			<h:outputLabel value="Sexo:"/>
 			<h:selectOneMenu id="campoSexo" value="#{pessoaBean.pessoa.sexo}" required="true">
-				<f:selectItem itemValue="NAO" itemLabel="[-Selecione-]" noSelectionOption="true"/>
+				<f:selectItem itemValue="NAO" itemLabel="[-Selecione-]" noSelectionOption="false"/>
 				<f:selectItem itemValue="MASCULINO" itemLabel="Masculino" />
 				<f:selectItem itemValue="FEMININO" itemLabel="Feminino"/>
 			
 			</h:selectOneMenu>
-
+			
+			<h:outputLabel value="Frameworks: " />
+			<h:selectManyMenu id="campoFrameworks" value="#{pessoaBean.pessoa.frameworks}" style="height: 150px;">
+				<f:selectItem itemValue="Hibernate"/>
+				<f:selectItem itemValue="SpringMVC"/>
+				<f:selectItem itemValue="JPA"/>
+				<f:selectItem itemValue="Primefaces"/>
+				<f:selectItem itemValue="JSF"/>
+			
+			</h:selectManyMenu>
+			
+			<h:outputLabel value="Ativo: " />
+			<h:selectBooleanCheckbox value="#{pessoaBean.pessoa.ativo}" />
+			
 			<h:outputLabel />
 			<h:panelGroup>
 				<h:commandButton value="Salvar" action="#{pessoaBean.salvar}" />
