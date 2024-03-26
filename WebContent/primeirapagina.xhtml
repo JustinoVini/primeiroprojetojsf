@@ -5,7 +5,7 @@
 	xmlns:f="http://java.sun.com/jsf/core">
 
 <h:head>
-	<title>Olá JSF</title>
+	<title>Cadastro de Usuários</title>
 </h:head>
 
 <h:body>
@@ -15,7 +15,7 @@
 		<h:graphicImage height="50" width="50" library="img"
 			name="primefaces.png" />
 
-		<h1>Olá JSF</h1>
+		<h1>Cadastro de Usuários</h1>
 
 		<h:panelGrid columns="2">
 			<f:facet name="header">
@@ -56,7 +56,23 @@
 
 			<h:outputLabel value="Ativo: " />
 			<h:selectBooleanCheckbox value="#{pessoaBean.pessoa.ativo}" />
+			
+			<h:outputLabel value="Login: "/>
+			<h:inputText value="#{pessoaBean.pessoa.login}"/>
+			
+			<h:outputLabel value="Senha: "/>
+			<h:inputSecret value="#{pessoaBean.pessoa.senha}"/>
+			
+			<h:selectOneMenu id="campoPerfil" value="#{pessoaBean.pessoa.perfilUser}"
+				required="false">
+				<f:selectItem itemValue="NAO" itemLabel="[-Selecione-]"
+					noSelectionOption="false" />
+				<f:selectItem itemValue="ADMINISTRADOR" itemLabel="Administrador" />
+				<f:selectItem itemValue="SECRETARIO" itemLabel="Secretário" />
+				<f:selectItem itemValue="RECEPCIONISTA" itemLabel="Recepcionista" />
 
+			</h:selectOneMenu>
+	
 			<h:outputLabel />
 			<h:panelGroup>
 				<h:commandButton value="Novo" action="#{pessoaBean.novo}"
@@ -78,7 +94,7 @@
 			cellpadding="6">
 
 			<f:facet name="header">
-				Lista de pessoas cadastradas
+				Lista de pessoas usuários
 			</f:facet>
 
 			<h:column>
