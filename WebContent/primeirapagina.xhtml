@@ -11,8 +11,9 @@
 <h:body>
 
 	<h:form id="formPessoa">
-	
-		<h:graphicImage height="50" width="50" library="img" name="primefaces.png"/>
+
+		<h:graphicImage height="50" width="50" library="img"
+			name="primefaces.png" />
 
 		<h1>Olá JSF</h1>
 
@@ -31,33 +32,45 @@
 
 			<h:outputLabel value="Idade: " />
 			<h:inputText value="#{pessoaBean.pessoa.idade}" />
-			
-			<h:outputLabel value="Sexo:"/>
-			<h:selectOneMenu id="campoSexo" value="#{pessoaBean.pessoa.sexo}" required="true">
-				<f:selectItem itemValue="NAO" itemLabel="[-Selecione-]" noSelectionOption="false"/>
+
+			<h:outputLabel value="Sexo:" />
+			<h:selectOneMenu id="campoSexo" value="#{pessoaBean.pessoa.sexo}"
+				required="true">
+				<f:selectItem itemValue="NAO" itemLabel="[-Selecione-]"
+					noSelectionOption="false" />
 				<f:selectItem itemValue="MASCULINO" itemLabel="Masculino" />
-				<f:selectItem itemValue="FEMININO" itemLabel="Feminino"/>
-			
+				<f:selectItem itemValue="FEMININO" itemLabel="Feminino" />
+
 			</h:selectOneMenu>
-			
+
 			<h:outputLabel value="Frameworks: " />
-			<h:selectManyMenu id="campoFrameworks" value="#{pessoaBean.pessoa.frameworks}" style="height: 150px;">
-				<f:selectItem itemValue="Hibernate"/>
-				<f:selectItem itemValue="SpringMVC"/>
-				<f:selectItem itemValue="JPA"/>
-				<f:selectItem itemValue="Primefaces"/>
-				<f:selectItem itemValue="JSF"/>
-			
+			<h:selectManyMenu id="campoFrameworks"
+				value="#{pessoaBean.pessoa.frameworks}" style="height: 150px;">
+				<f:selectItem itemValue="Hibernate" />
+				<f:selectItem itemValue="SpringMVC" />
+				<f:selectItem itemValue="JPA" />
+				<f:selectItem itemValue="Primefaces" />
+				<f:selectItem itemValue="JSF" />
+
 			</h:selectManyMenu>
-			
+
 			<h:outputLabel value="Ativo: " />
 			<h:selectBooleanCheckbox value="#{pessoaBean.pessoa.ativo}" />
-			
+
 			<h:outputLabel />
 			<h:panelGroup>
-				<h:commandButton value="Salvar" action="#{pessoaBean.salvar}" />
-				<h:commandButton value="Novo" action="#{pessoaBean.novo}" />
-				<h:commandButton value="Remove" action="#{pessoaBean.remove}" />
+				<h:commandButton value="Novo" action="#{pessoaBean.novo}"
+					image="resources/img/novo.png"
+					style="width: 40px; height: 40px; margin-right: 5px;" title="Novo" />
+				<h:commandButton value="Salvar" action="#{pessoaBean.salvar}"
+					image="resources/img/salvar.png"
+					style="width: 40px; height: 40px; margin-right: 5px;"
+					title="Salvar" />
+				<h:commandButton value="Remove" action="#{pessoaBean.remove}"
+					image="resources/img/excluir.png"
+					style="width: 40px; height: 40px; margin-right: 5px;"
+					title="Remover" />
+				<h:commandButton value="Limpar" type="reset" />
 			</h:panelGroup>
 		</h:panelGrid>
 
@@ -86,15 +99,18 @@
 			</h:column>
 			<h:column>
 				<f:facet name="header">Ações</f:facet>
-				<div style="width: 200px; display: flex; flex-direction: row; justify-content: space-around;">
-					<h:commandLink value="Editar">
+				<div
+					style="width: 200px; display: flex; flex-direction: row; justify-content: space-around;">
+					<h:commandLink>
 						<f:setPropertyActionListener value="#{pessoa}"
 							target="#{pessoaBean.pessoa}" />
+						<h:graphicImage style="width: 40px; height: 32px;" value="/resources/img/editar.png"/>
 					</h:commandLink>
 
-					<h:commandLink value="Excluir" action="#{pessoaBean.remove}">
+					<h:commandLink action="#{pessoaBean.remove}">
 						<f:setPropertyActionListener value="#{pessoa}"
 							target="#{pessoaBean.pessoa}" />
+							<h:graphicImage style="width: 32px; height: 32px;" value="/resources/img/excluir.png"/>
 					</h:commandLink>
 				</div>
 			</h:column>
